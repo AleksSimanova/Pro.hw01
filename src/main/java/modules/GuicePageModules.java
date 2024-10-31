@@ -1,5 +1,6 @@
 package modules;
 
+import components.static_components.HeaderMenuComponent;
 import org.openqa.selenium.WebDriver;
 import com.google.inject.AbstractModule;
 import com.google.inject.Provides;
@@ -30,4 +31,11 @@ private WebDriver driver = new WebDriverFactory().create();
     public LessonCardPage getLessonCardPage(){
         return new LessonCardPage(driver);
     }
+
+    @Singleton
+    @Provides
+    public HeaderMenuComponent getHeaderMenuComponent(){
+        return  new HeaderMenuComponent(driver);
+    }
+
 }

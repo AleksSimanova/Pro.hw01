@@ -14,15 +14,9 @@ public abstract class AbsComponent<T> extends AbsCommon <T> {
     public AbsComponent(WebDriver driver) {
         super(driver);
     }
-    {
-        try {
-            waiters.waitForVisible(getComponentEntity());
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
 
-    private By getComponentBy() throws Exception {
+
+    protected By getComponentBy() throws Exception {
         Component component = getClass().getAnnotation(Component.class);
         if(component != null){
             Pattern pattern =Pattern.compile("(.*?):(.*?)");
@@ -31,6 +25,9 @@ public abstract class AbsComponent<T> extends AbsCommon <T> {
                 switch (matcher.group(1)){
                     case "css":{
                         return By.cssSelector(matcher.group(2));
+                    }
+                    case "internal_component" : {
+                        return By.xpath(matcher.group(2));
                     }
                 }
             }
