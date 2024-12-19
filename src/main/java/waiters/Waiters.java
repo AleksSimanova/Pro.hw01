@@ -18,7 +18,7 @@ public class Waiters {
 
     public  boolean waitForCondition(ExpectedCondition condition){
         try {
-            new WebDriverWait(driver, Duration.ofSeconds(15)).until(condition);
+            new WebDriverWait(driver, Duration.ofSeconds(20)).until(condition);
             return true;
         }catch (TimeoutException ignored){
             return false;
@@ -30,5 +30,10 @@ public class Waiters {
     }
     public boolean waitForInvisible(WebElement element){
         return waitForCondition(ExpectedConditions.invisibilityOf(element));
+    }
+    public void implicitly(){
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
+
+
     }
 }

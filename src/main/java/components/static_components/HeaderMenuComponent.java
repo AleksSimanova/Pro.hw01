@@ -13,9 +13,9 @@ public class HeaderMenuComponent extends AbsComponent<HeaderMenuComponent> {
         super(driver);
     }
 
-    public void setFocusMenuItem(HeaderMenuData headerMenuData){
+    public HeaderMenuComponent setFocusMenuItem(HeaderMenuData headerMenuData){
         String locator = String.format("//div[./span[text='%s']]",headerMenuData.getName());
         action.moveToElement($(By.xpath(locator))).build().perform();
-
+        return this;
     }
 }

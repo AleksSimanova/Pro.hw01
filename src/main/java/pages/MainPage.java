@@ -33,8 +33,7 @@ public class MainPage extends AbsBasePage <MainPage> {
 
     public void clickLessonTitleByTitle(String title){
 
-        String lessonCardLocatorTemplate= String.format("//a[not(@class)][contains(@href,'/lessons')][.//*[text()='%s']]", title);
-
+        String lessonCardLocatorTemplate = String.format("//a[not(@class)][contains(@href,'/lessons')][.//*[text()='%s']]", title);
         $(By.xpath(lessonCardLocatorTemplate)).click();
 
     }

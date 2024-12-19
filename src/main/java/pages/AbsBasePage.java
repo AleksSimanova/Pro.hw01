@@ -43,6 +43,7 @@ public abstract class AbsBasePage <T> extends AbsCommon<T>{
         if (pathTemplate == null){
             throw new PathNotValidException();
         }
+
         String path = pathTemplate.value();
         for(int i = 0; i < data.length; i++){
             path = path.replace("$"+(i + 1), data[i]);
@@ -50,6 +51,7 @@ public abstract class AbsBasePage <T> extends AbsCommon<T>{
         driver.get(BASE_URL + String.format(pathTemplate.value(), data));
 
         return (T) this;
+
         }
 
         public T pageHeaderShouldBeSameAs(String title){

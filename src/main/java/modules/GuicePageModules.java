@@ -1,5 +1,7 @@
 package modules;
 
+import components.popups.Cookies;
+import components.popups.PopupStickyBanner;
 import components.static_components.HeaderMenuComponent;
 import org.openqa.selenium.WebDriver;
 import com.google.inject.AbstractModule;
@@ -43,6 +45,18 @@ private WebDriver driver = new WebDriverFactory().create();
     @Provides
     public CatalogPage getCatalogPage (){
         return new CatalogPage(driver);
+    }
+
+    @Singleton
+    @Provides
+    public Cookies getCookies(){
+        return new Cookies(driver);
+    }
+
+    @Singleton
+    @Provides
+    public PopupStickyBanner getPopupStickyBanner(){
+        return new PopupStickyBanner(driver);
     }
 
 }

@@ -9,6 +9,7 @@ public class ChromeSettings implements IBrowserSettings{
     public AbstractDriverOptions settings() {
         ChromeOptions chromeOptions = new ChromeOptions();
         chromeOptions.addArguments("--no-sandbox");
+        chromeOptions.addArguments("--start-maximized");
 
         return chromeOptions;
         
