@@ -29,7 +29,9 @@ public class PageNameCourse_TestPageModuls {
         catalogPage
                 .open();
 //        popupStickyBanner.removeAdvertisingPoster();
-        catalogPage.openAllCourses();
+//        catalogPage.openAllCourses();
+
+        catalogPage.listCourses().jsoupData();
 //        popupStickyBanner.removeAdvertisingPoster();
 //        cookies.cookiesClick();
 
