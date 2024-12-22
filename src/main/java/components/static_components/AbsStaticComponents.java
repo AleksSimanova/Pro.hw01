@@ -3,9 +3,9 @@ package components.static_components;
 import components.AbsComponent;
 import org.openqa.selenium.WebDriver;
 
-public abstract class AbsStaticComponents <T> extends AbsComponent <T> {
+public abstract class AbsStaticComponents<T> extends AbsComponent<T> {
 
-    public AbsStaticComponents(WebDriver driver){
+    public AbsStaticComponents(WebDriver driver) {
         super(driver);
     }
 

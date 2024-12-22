@@ -22,7 +22,7 @@ public class LessonCardPage extends AbsBasePage {
  @FindBy(css = "section  h1")
     WebElement namePage;
 
-    String BREAD_CRUMBS_LOCATOR ="//section //a/text()[.='%S']";
+    String BREAD_CRUMBS_LOCATOR ="//section //a/text()[.='%s']";
 
     public boolean namePageShouldBe (String expectedName) {
     String actualNamePage = namePage.getText();

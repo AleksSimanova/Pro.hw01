@@ -1,22 +1,20 @@
 package components.popups;
 
-import annotations.components.Component;
 import components.AbsComponent;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
-
 import static org.assertj.core.api.Assertions.assertThat;
 
 //@Component("internal_component : //span/text()[.='Посещая наш сайт, вы принимаете']/following::div/button")
-public class Cookies extends AbsComponent<Cookies>  {
-        public Cookies(WebDriver driver) {
-            super(driver);
-        }
+public class Cookies extends AbsComponent<Cookies> {
+    public Cookies(WebDriver driver) {
+        super(driver);
+    }
 
-       // protected String cookiesButtonLocator = "//span/text()[.='Посещая наш сайт, вы принимаете']/following::div/button";
+    // protected String cookiesButtonLocator = "//span/text()[.='Посещая наш сайт, вы принимаете']/following::div/button";
 
 
 //
@@ -41,14 +39,6 @@ public class Cookies extends AbsComponent<Cookies>  {
 //                .isTrue());
 //
 //        return this;
-//    }
-//
-//    public void cookiesClick() throws Exception {
-//        String cookiesButtonLocator = "//div/following::span/text()[.='Посещая наш сайт, вы принимаете']";
-//        popupShouldVisible();
-//        action.moveToElement($(By.xpath(cookiesButtonLocator))).click().build().perform();
-//        popupShouldNotVisible();
-//
 //    }
 
 

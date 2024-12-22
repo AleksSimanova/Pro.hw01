@@ -3,8 +3,7 @@ package pages;
 import annotations.Path;
 import com.google.inject.Inject;
 import components.popups.Cookies;
-import data.menu.CoursesData;
-import modules.CoursePageModules;
+import components.static_components.MenuDirectionComponent;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
@@ -15,7 +14,6 @@ import org.openqa.selenium.WebElement;
 import java.io.IOException;
 import java.text.ParseException;
 import java.time.LocalDate;
-import java.time.chrono.ChronoLocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -25,6 +23,8 @@ import java.util.stream.Collectors;
 public class CatalogPage extends AbsBasePage {
     @Inject
     private Cookies cookies;
+    @Inject
+    private MenuDirectionComponent menuDirectionComponent;
 
     public CatalogPage(WebDriver driver) {
         super(driver);
@@ -35,7 +35,7 @@ public class CatalogPage extends AbsBasePage {
     public String nameCourse = "";
     String cartCursesLocator = "//div[./h1]/following-sibling::div/descendant::a";
     List<WebElement> courses = new ArrayList<>();
-    List<WebElement> listCoursesElemaints = new ArrayList<>();
+    List<WebElement> listCoursesElements = new ArrayList<>();
 
 
 //    public  void clickTitle(){
@@ -46,7 +46,7 @@ public class CatalogPage extends AbsBasePage {
 
     public CatalogPage listCourses() {
 
-        listCoursesElemaints = $$(By.xpath(cartCursesLocator));
+        listCoursesElements = $$(By.xpath(cartCursesLocator));
         return this;
     }
 
@@ -85,15 +85,13 @@ public class CatalogPage extends AbsBasePage {
 //        return nameCourse;
 //    }
 
-    Map<String, LocalDate> dateMap1 = new HashMap<>();
-    List<CoursePageModules> coursesList = new ArrayList<>();
+    Map<String, String> dateMapString = new HashMap<>();
 
     public void jsoupData() throws IOException, ParseException {
         String dataSelector = "main section >div:nth-of-type(3) >div>div:nth-of-type(1) p";
         String nameSelector = "main section h1";
 
-        for (WebElement element :listCoursesElemaints) {
-            LocalDate date;
+        for (WebElement element : listCoursesElements) {
             Document doc = Jsoup.connect(element.getAttribute("href")).get();
 
             Elements infoCoursesData = doc.select(dataSelector);
@@ -101,37 +99,47 @@ public class CatalogPage extends AbsBasePage {
 
             String infoDataStr = infoCoursesData.text();
             String nameCoursesStr = nameCours.text();
-            if(infoDataStr.contains("Сообщить о старте наборв")){
+            if (infoDataStr.contains("Сообщить о старте наборв")) {
                 infoDataStr = "31.января.2050";
             }
             if (infoDataStr.contains("декабря")) {
                 infoDataStr = infoDataStr + " 2024";
-                DateTimeFormatter format = DateTimeFormatter.ofPattern("d.MMMM.yyyy",Locale.forLanguageTag("ru-RU"));
-                date = LocalDate.parse(infoDataStr, format);
+            }
+            dateMapString.put(nameCoursesStr, infoDataStr);
+        }
+        DateTimeFormatter format = DateTimeFormatter.ofPattern("d MMMM yyyy", Locale.forLanguageTag("ru-RU"));
 
-            }else{DateTimeFormatter format = DateTimeFormatter.ofPattern("d.MMMM.yyyy", Locale.forLanguageTag("ru-RU"));
-                 date = LocalDate.parse(infoDataStr, format);
-               }
+        Map<String, LocalDate> newMapFormatDate = dateMapString.entrySet().stream()
+                .collect(Collectors.toMap(Map.Entry::getKey, entry ->
+                        LocalDate.parse(entry.getValue(), format)));
 
+        LocalDate minDate = newMapFormatDate.values().stream().reduce(LocalDate.MAX, (early, late) -> early.isAfter(late) ? late : early);
+        LocalDate maxDate = newMapFormatDate.values().stream().reduce(LocalDate.MIN, (early, late) -> early.isBefore(late) ? late : early);
 
-            dateMap1.put(nameCoursesStr, date);
+        System.out.println("minDate = " + minDate + " maxDate = " + maxDate);
+        List earlyCourses = new ArrayList();
+        List lateCourses = new ArrayList();
 
-            dateMap1.forEach((key, value) -> System.out.println(key + "" + value));
-
-            ChronoLocalDate d1 = null;
-            LocalDate minDate = dateMap1.values().stream().reduce(LocalDate.MAX, (early, late) -> early.isAfter(late) ? late : early);
-            LocalDate maxDate = dateMap1.values().stream().reduce(LocalDate.MIN, (early, late) -> early.isBefore(late) ? late : early);
-            System.out.println("minDate = " + minDate + " maxDate = " + maxDate);
-            Map<String, LocalDate> sortCour = dateMap1.entrySet().stream()
-                    .sorted((cours1, cousr2) ->
-                            !cours1.getValue().equals(cousr2.getValue()) ? -cours1.getValue().compareTo(cousr2.getValue()) :
-                                    cours1.getKey().compareTo(cousr2.getKey())).collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (x, y) -> y, HashMap::new));
-
+        for (Map.Entry<String,LocalDate> entry:newMapFormatDate.entrySet()){
+            if(minDate.equals(entry.getValue())){
+                earlyCourses.add(entry.getKey());
+            }
+        }
+        for (Map.Entry<String,LocalDate> entry:newMapFormatDate.entrySet()){
+            if(maxDate.equals(entry.getValue())){
+                lateCourses.add(entry.getKey());
+            }
         }
 
+        System.out.println("Курс начинается "+minDate+ " " +Arrays.toString(earlyCourses.toArray()));
+        System.out.println("Курс начинается "+ lateCourses + " " +Arrays.toString(lateCourses.toArray()));
     }
 
 }
+
+
+
+
 
 
 

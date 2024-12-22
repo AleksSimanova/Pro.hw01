@@ -1,16 +1,13 @@
 import com.google.inject.Inject;
 import components.popups.Cookies;
-import components.popups.PopupStickyBanner;
-import data.menu.CoursesData;
 import extetions.UIExtetion;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import pages.CatalogPage;
 import pages.LessonCardPage;
-import pages.MainPage;
 
 @ExtendWith(UIExtetion.class)
-public class PageNameCourse_TestPageModuls {
+public class BeginningOfTraining_Test {
 //    @Inject
 //    private MainPage mainPage;
 
@@ -18,8 +15,6 @@ public class PageNameCourse_TestPageModuls {
     private CatalogPage catalogPage;
     @Inject
     private LessonCardPage lessonCardPage;
-    @Inject
-    private PopupStickyBanner popupStickyBanner;
     @Inject
     private Cookies cookies;
 
