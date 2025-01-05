@@ -13,10 +13,7 @@ public class Cookies extends AbsComponent<Cookies> {
     public Cookies(WebDriver driver) {
         super(driver);
     }
-
     // protected String cookiesButtonLocator = "//span/text()[.='Посещая наш сайт, вы принимаете']/following::div/button";
-
-
 //
 //    @Override
 //    public Cookies popupShouldVisible() throws Exception {
@@ -41,16 +38,13 @@ public class Cookies extends AbsComponent<Cookies> {
 //        return this;
 //    }
 
-
     public void cookiesClick() {
         String cookiesButtonLocator = "//div[text()='OK']/parent::button";
         waiters.implicitly();
         assertThat(waiters.waitForCondition(ExpectedConditions.elementToBeClickable($(By.xpath(cookiesButtonLocator))))).as("cookies are not offered").isTrue();
         WebElement button = $(By.xpath(cookiesButtonLocator));
-
         action.clickAndHold(button).perform();
         assertThat(waiters.waitForInvisible($(By.xpath(cookiesButtonLocator)))).as("cookies are not accepted").isTrue();
     }
-
 
 }

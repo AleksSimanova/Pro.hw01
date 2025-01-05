@@ -18,18 +18,15 @@ public class BeginningOfTraining_Test {
     @Inject
     private Cookies cookies;
 
-
     @Test
     public void pageNameOpen() throws Exception {
         catalogPage
                 .open();
 //        popupStickyBanner.removeAdvertisingPoster();
 //        catalogPage.openAllCourses();
-
         catalogPage.listCourses().jsoupData();
 //        popupStickyBanner.removeAdvertisingPoster();
 //        cookies.cookiesClick();
-
 //
 //
 //
@@ -37,6 +34,5 @@ public class BeginningOfTraining_Test {
 //                .clickCourse(CoursesData.POSTGESQL);
 //        lessonCardPage.namePageShouldBe(name);
     }
-
 
 }

@@ -13,7 +13,6 @@ import pages.CatalogPage;
 import pages.LessonCardPage;
 import pages.MainPage;
 
-
 public class GuicePageModules extends AbstractModule {
 
     private WebDriver driver = new WebDriverFactory().create();
@@ -53,7 +52,6 @@ public class GuicePageModules extends AbstractModule {
     public Cookies getCookies() {
         return new Cookies(driver);
     }
-
 
     @Singleton
     @Provides

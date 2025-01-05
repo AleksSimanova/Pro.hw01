@@ -5,10 +5,10 @@ public enum HeaderMenuData {
 
     private String name;
 
-    HeaderMenuData(String name){
-        this.name=name;
+    HeaderMenuData(String name) {
+        this.name = name;
     }
-    public String getName(){
+    public String getName() {
         return name;
     }
 }

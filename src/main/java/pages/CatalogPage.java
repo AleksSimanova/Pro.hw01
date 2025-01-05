@@ -18,7 +18,6 @@ import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.stream.Collectors;
 
-
 @Path("/catalog/courses")
 public class CatalogPage extends AbsBasePage {
     @Inject
@@ -30,14 +29,11 @@ public class CatalogPage extends AbsBasePage {
         super(driver);
     }
 
-
     String NAME_COURSE_LOCATOR = "//section//div/text()[.='%s']/ancestor::a";
     public String nameCourse = "";
     String cartCursesLocator = "//div[./h1]/following-sibling::div/descendant::a";
     List<WebElement> courses = new ArrayList<>();
     List<WebElement> listCoursesElements = new ArrayList<>();
-
-
 //    public  void clickTitle(){
 //        waiters.waitForVisible($(By.xpath("//div[text()='Каталог']")));
 //        $(By.xpath("//div[text()='Каталог']")).click();
@@ -45,12 +41,9 @@ public class CatalogPage extends AbsBasePage {
 //    }
 
     public CatalogPage listCourses() {
-
         listCoursesElements = $$(By.xpath(cartCursesLocator));
         return this;
     }
-
-
 //    public CatalogPage openAllCourses() {
 //
 //        String buttonOpenAllCoursesLocator = "//button[contains(text(),'Показать еще')]";
@@ -74,7 +67,6 @@ public class CatalogPage extends AbsBasePage {
 //        }
 //        return this;
 //    }
-
 //    public String clickCourse(CoursesData coursesData) throws Exception {
 //
 //        openAllCourses();
@@ -90,13 +82,10 @@ public class CatalogPage extends AbsBasePage {
     public void jsoupData() throws IOException, ParseException {
         String dataSelector = "main section >div:nth-of-type(3) >div>div:nth-of-type(1) p";
         String nameSelector = "main section h1";
-
         for (WebElement element : listCoursesElements) {
             Document doc = Jsoup.connect(element.getAttribute("href")).get();
-
             Elements infoCoursesData = doc.select(dataSelector);
             Elements nameCours = doc.select(nameSelector);
-
             String infoDataStr = infoCoursesData.text();
             String nameCoursesStr = nameCours.text();
             if (infoDataStr.contains("Сообщить о старте наборв")) {
@@ -108,31 +97,26 @@ public class CatalogPage extends AbsBasePage {
             dateMapString.put(nameCoursesStr, infoDataStr);
         }
         DateTimeFormatter format = DateTimeFormatter.ofPattern("d MMMM yyyy", Locale.forLanguageTag("ru-RU"));
-
         Map<String, LocalDate> newMapFormatDate = dateMapString.entrySet().stream()
                 .collect(Collectors.toMap(Map.Entry::getKey, entry ->
                         LocalDate.parse(entry.getValue(), format)));
-
         LocalDate minDate = newMapFormatDate.values().stream().reduce(LocalDate.MAX, (early, late) -> early.isAfter(late) ? late : early);
         LocalDate maxDate = newMapFormatDate.values().stream().reduce(LocalDate.MIN, (early, late) -> early.isBefore(late) ? late : early);
-
         System.out.println("minDate = " + minDate + " maxDate = " + maxDate);
         List earlyCourses = new ArrayList();
         List lateCourses = new ArrayList();
-
-        for (Map.Entry<String,LocalDate> entry:newMapFormatDate.entrySet()){
-            if(minDate.equals(entry.getValue())){
+        for (Map.Entry<String, LocalDate> entry : newMapFormatDate.entrySet()) {
+            if (minDate.equals(entry.getValue())) {
                 earlyCourses.add(entry.getKey());
             }
         }
-        for (Map.Entry<String,LocalDate> entry:newMapFormatDate.entrySet()){
-            if(maxDate.equals(entry.getValue())){
+        for (Map.Entry<String, LocalDate> entry : newMapFormatDate.entrySet()) {
+            if (maxDate.equals(entry.getValue())) {
                 lateCourses.add(entry.getKey());
             }
         }
-
-        System.out.println("Курс начинается "+minDate+ " " +Arrays.toString(earlyCourses.toArray()));
-        System.out.println("Курс начинается "+ lateCourses + " " +Arrays.toString(lateCourses.toArray()));
+        System.out.println("Курс начинается " + minDate + " " + Arrays.toString(earlyCourses.toArray()));
+        System.out.println("Курс начинается " + lateCourses + " " + Arrays.toString(lateCourses.toArray()));
     }
 
 }

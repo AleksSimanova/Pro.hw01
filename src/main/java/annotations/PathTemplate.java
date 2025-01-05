@@ -7,7 +7,7 @@ import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
-public @ interface PathTemplate {
+public @interface PathTemplate {
 
     String value();
 

@@ -16,5 +16,4 @@ public abstract class AbsStaticComponents<T> extends AbsComponent<T> {
             throw new RuntimeException(e);
         }
     }
-
 }

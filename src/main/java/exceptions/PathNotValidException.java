@@ -1,8 +1,8 @@
 package exceptions;
 
-public class PathNotValidException extends RuntimeException{
+public class PathNotValidException extends RuntimeException {
 
-    public PathNotValidException(){
+    public PathNotValidException() {
         super("Path not set to class");
     }
 }
