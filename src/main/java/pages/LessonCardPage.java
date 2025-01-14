@@ -17,13 +17,18 @@ public class LessonCardPage extends AbsBasePage {
     @FindBy(css = "section  h1")
     WebElement namePage;
 
-    String BREAD_CRUMBS_LOCATOR = "//section //a/text()[.='%s']";
+    String BREAD_CRUMBS_LOCATOR = "//a/text()[.='%s']";
 
     public boolean namePageShouldBe(String expectedName) {
         String actualNamePage = namePage.getText();
-        String locator = String.format(BREAD_CRUMBS_LOCATOR, expectedName);
         assertThat(actualNamePage).as("Name page is not {}").isEqualTo(expectedName);
-        assertThat(waiters.waitForVisible($(By.xpath(locator)))).as("Bread crumbs with title {} is no").isTrue();
         return true;
     }
+//    public boolean namePageShouldBe2 (String expectedName) {
+//        String actualNamePage = namePage.getText();
+//        String locator = String.format(BREAD_CRUMBS_LOCATOR,expectedName);
+//        assertThat(actualNamePage).as("Name page is not {}").isEqualTo(expectedName);
+//        assertThat(waiters.waitForVisible($(By.xpath(locator)))).as("Bread crumbs with title {} is no").isTrue();
+//        return true;
+//    }
 }

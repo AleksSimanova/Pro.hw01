@@ -28,7 +28,6 @@ public abstract class AbsComponent<T> extends AbsCommon<T> {
                     case "internal_component": {
                         return By.xpath(matcher.group(2));
                     }
-
                 }
             }
         }

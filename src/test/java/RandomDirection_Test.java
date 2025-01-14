@@ -1,11 +1,9 @@
 import com.google.inject.Inject;
-import components.popups.PopupHeaderSubMenu;
 import components.static_components.HeaderMenuComponent;
 import components.static_components.MenuDirectionComponent;
 import extetions.UIExtetion;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import pages.LessonCardPage;
 import pages.MainPage;
 
 @ExtendWith(UIExtetion.class)

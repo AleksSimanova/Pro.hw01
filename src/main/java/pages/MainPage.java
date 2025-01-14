@@ -19,15 +19,6 @@ public class MainPage extends AbsBasePage<MainPage> {
     }
 
     @Inject
-    private LessonCardPage lessonCardPage;
-
-    @Inject
-    private PopupHeaderSubMenu popupHeaderSubMenu;
-
-    @Inject
-    private CatalogPage catalogPage;
-
-    @Inject
     private HeaderMenuComponent headerMenuComponent;
 
     @FindBy(xpath = "//section[./h2]//a[contains(@href,'/lessons')]")
@@ -51,7 +42,6 @@ public class MainPage extends AbsBasePage<MainPage> {
         $(By.xpath(trainingLocator)).click();
         Thread.sleep(3000);
         return headerMenuComponent;
-
     }
 
 }

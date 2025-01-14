@@ -10,9 +10,9 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import pages.CatalogPage;
 
-import java.util.*;
-
-import static java.time.chrono.JapaneseEra.values;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 @Component("css : a[href='/'] ~nav")
 public class HeaderMenuComponent extends AbsComponent<HeaderMenuComponent> {
@@ -49,10 +49,9 @@ public class HeaderMenuComponent extends AbsComponent<HeaderMenuComponent> {
 
     }
 
-
     public CatalogPage clickDirection(String randomDirection) {
-        String hrefCourses =  MenuCoursesData.hrefRandomCourses(randomDirection);
-        String randomLocator = String.format(nameDirectionLocatorTemplate,hrefCourses);
+        String hrefCourses = MenuCoursesData.hrefRandomCourses(randomDirection);
+        String randomLocator = String.format(nameDirectionLocatorTemplate, hrefCourses);
         action.moveToElement($(By.xpath(randomLocator))).click().build().perform();
         return catalogPage;
     }
