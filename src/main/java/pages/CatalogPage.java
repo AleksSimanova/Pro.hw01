@@ -8,13 +8,11 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-import java.awt.*;
 import java.io.IOException;
 import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
-import java.util.List;
 import java.util.stream.Collectors;
 
 @Path("/catalog/courses")
@@ -96,11 +94,15 @@ public class CatalogPage extends AbsBasePage {
     }
 
     public void searchCourse(String name) {
-        String locator = String.format(cartCursesLocator+"/h6");
-        List <WebElement > coursesList = $$(By.xpath(locator));
-  //      String element =  coursesList.stream().peek(c -> )filter(name::equals).findFirst().toString();
-  //      System.out.println(element);
+        String locator = String.format(cartCursesLocator + "/h6");
+        List<WebElement> coursesList = $$(By.xpath(locator));
+        coursesList.stream()
+                .filter(e -> e.getText().equals(name))
+                .findFirst()
+                .ifPresent(el -> el.click());
+
     }
+
 }
 
 

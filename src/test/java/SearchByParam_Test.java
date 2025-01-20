@@ -15,10 +15,11 @@ public class SearchByParam_Test {
     private LessonCardPage lessonCardPage;
 
     @Test
-    public void searchByParam(){
-        catalogPage
-                .open();
-        catalogPage.searchCourse("Фасилитация IT команд");
+    public void searchByParam() {
+        catalogPage.open();
+        String name = "Фасилитация IT команд";
+        catalogPage.searchCourse(name);
+        lessonCardPage.namePageShouldBe(name);
 
     }
 
