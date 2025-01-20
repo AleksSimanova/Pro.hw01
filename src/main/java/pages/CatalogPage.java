@@ -7,7 +7,6 @@ import org.jsoup.select.Elements;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-
 import java.io.IOException;
 import java.text.ParseException;
 import java.time.LocalDate;
@@ -22,7 +21,7 @@ public class CatalogPage extends AbsBasePage {
         super(driver);
     }
 
-    String NAME_COURSE_LOCATOR = "//section//div/text()[.='%s']/ancestor::a";
+    String NameCoursesLocatorTemp = "//section//div/text()[.='%s']/ancestor::a";
     String cartCursesLocator = "//div[./h1]/following-sibling::div/descendant::a";
     String lateOneCourses;
     String earlyOneCourses;
@@ -32,7 +31,7 @@ public class CatalogPage extends AbsBasePage {
     List lateCourses = new ArrayList();
 
     public void clickCourse(String nameCoursePageCatalog) throws Exception {
-        String locator = String.format(NAME_COURSE_LOCATOR, nameCoursePageCatalog);
+        String locator = String.format(NameCoursesLocatorTemp, nameCoursePageCatalog);
         waiters.waitForVisible($(By.xpath(locator)));
         $(By.xpath(locator)).click();
     }

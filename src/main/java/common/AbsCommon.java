@@ -5,9 +5,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.PageFactory;
 import waiters.Waiters;
-
 import java.util.List;
-;
 
 public abstract class AbsCommon<T> {
 

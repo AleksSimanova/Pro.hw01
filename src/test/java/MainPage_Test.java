@@ -1,4 +1,3 @@
-
 import com.google.inject.Inject;
 import extetions.UIExtetion;
 import org.junit.jupiter.api.Test;

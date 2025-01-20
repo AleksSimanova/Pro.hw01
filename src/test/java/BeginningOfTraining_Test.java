@@ -1,5 +1,4 @@
 import com.google.inject.Inject;
-import components.popups.Cookies;
 import extetions.UIExtetion;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -17,25 +16,14 @@ public class BeginningOfTraining_Test {
 
     @Test
     public void pageNameOpen() throws Exception {
-        catalogPage
-                .open();
-        catalogPage
-                .jsoupData();
-        String earlyCourse = catalogPage
-                .getEarlyCourse();
-        catalogPage.
-                clickCourse(earlyCourse);
-        lessonCardPage
-                .namePageShouldBe(earlyCourse);
-        String lateCourse = catalogPage
-                .getLateOneCourses();
-        catalogPage
-                .open();
-        catalogPage
-                .clickCourse(lateCourse);
-        lessonCardPage
-                .namePageShouldBe(lateCourse);
-
+        catalogPage.open();
+        catalogPage.jsoupData();
+        String earlyCourse = catalogPage.getEarlyCourse();
+        catalogPage.clickCourse(earlyCourse);
+        lessonCardPage.namePageShouldBe(earlyCourse);
+        String lateCourse = catalogPage.getLateOneCourses();
+        catalogPage.open();
+        catalogPage.clickCourse(lateCourse);
+        lessonCardPage.namePageShouldBe(lateCourse);
     }
-
 }

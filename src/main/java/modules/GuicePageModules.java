@@ -3,10 +3,9 @@ package modules;
 import com.google.inject.AbstractModule;
 import com.google.inject.Provides;
 import com.google.inject.Singleton;
-import components.popups.Cookies;
 import components.popups.PopupHeaderSubMenu;
-import components.static_components.HeaderMenuComponent;
-import components.static_components.MenuDirectionComponent;
+import components.components1.HeaderMenuComponent;
+import components.components1.MenuDirectionComponent;
 import factory.WebDriverFactory;
 import org.openqa.selenium.WebDriver;
 import pages.CatalogPage;
@@ -45,12 +44,6 @@ public class GuicePageModules extends AbstractModule {
     @Provides
     public CatalogPage getCatalogPage() {
         return new CatalogPage(driver);
-    }
-
-    @Singleton
-    @Provides
-    public Cookies getCookies() {
-        return new Cookies(driver);
     }
 
     @Singleton

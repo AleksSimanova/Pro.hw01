@@ -1,4 +1,4 @@
-package components.static_components;
+package components.components1;
 
 import annotations.components.Component;
 import com.google.inject.Inject;
@@ -9,7 +9,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import pages.CatalogPage;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;

@@ -1,4 +1,4 @@
-package components.static_components;
+package components.components1;
 
 import annotations.components.Component;
 import components.AbsComponent;
@@ -22,7 +22,7 @@ public class MenuDirectionComponent extends AbsComponent<MenuDirectionComponent>
         Assertions.assertThat($(By.xpath(locator)).isSelected()).as("The direction {}is not selected", nameDirectionIsSelected);
     }
 
-    public void nameCourses (String titleCourses){
+    public void nameCourses(String titleCourses) {
         String n = MenuCoursesData.nameCourses(titleCourses);
         selectDirection(n);
     }

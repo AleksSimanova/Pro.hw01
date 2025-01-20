@@ -1,6 +1,6 @@
 import com.google.inject.Inject;
-import components.static_components.HeaderMenuComponent;
-import components.static_components.MenuDirectionComponent;
+import components.components1.HeaderMenuComponent;
+import components.components1.MenuDirectionComponent;
 import extetions.UIExtetion;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

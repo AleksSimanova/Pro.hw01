@@ -2,13 +2,11 @@ package pages;
 
 import annotations.Path;
 import com.google.inject.Inject;
-import components.popups.PopupHeaderSubMenu;
-import components.static_components.HeaderMenuComponent;
+import components.components1.HeaderMenuComponent;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-
 import java.util.List;
 
 @Path("/")

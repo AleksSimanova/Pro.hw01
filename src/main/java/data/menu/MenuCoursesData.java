@@ -35,17 +35,17 @@ public enum MenuCoursesData {
         return href;
     }
 
-    public static String hrefRandomCourses(String rName) {
+    public static String hrefRandomCourses(String name) {
         for (MenuCoursesData v : values()) {
-            if (v.cutName.equals(rName)) {
+            if (v.cutName.equals(name)) {
                 return v.href;
             }
         }
         return null;
     }
-    public static String nameCourses(String rName) {
+    public static String nameCourses(String name) {
         for (MenuCoursesData v : values()) {
-            if (v.cutName.equals(rName)) {
+            if (v.cutName.equals(name)) {
                 return v.name;
             }
         }

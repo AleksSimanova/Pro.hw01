@@ -1,5 +1,7 @@
 package pages;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import annotations.Path;
 import annotations.PathTemplate;
 import common.AbsCommon;
@@ -9,13 +11,9 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 public abstract class AbsBasePage<T> extends AbsCommon<T> {
 
-    private String BASE_URL = !System.getProperty("base.url").endsWith("/") ?
-            System.getProperty("base.url") :
-            System.getProperty("base.url").substring(0, System.getProperty("base.url").length() - 1);
+    private String BASE_URL = !System.getProperty("base.url").endsWith("/") ? System.getProperty("base.url") : System.getProperty("base.url").substring(0, System.getProperty("base.url").length() - 1);
 
     public AbsBasePage(WebDriver driver) {
         super(driver);
@@ -51,8 +49,7 @@ public abstract class AbsBasePage<T> extends AbsCommon<T> {
     }
 
     public T pageHeaderShouldBeSameAs(String title) {
-        assertThat($(By.tagName("h1")).getText()).as("header of page should be {}", title)
-                .isEqualTo(title);
+        assertThat($(By.tagName("h1")).getText()).as("header of page should be {}", title).isEqualTo(title);
         return (T) this;
     }
 }

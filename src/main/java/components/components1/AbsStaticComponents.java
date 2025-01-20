@@ -1,4 +1,4 @@
-package components.static_components;
+package components.components1;
 
 import components.AbsComponent;
 import org.openqa.selenium.WebDriver;
