@@ -1,4 +1,4 @@
 .idea
 .vscode
-./target
+.target
 demo/demo.iml
