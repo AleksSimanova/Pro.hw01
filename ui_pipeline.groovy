@@ -1,18 +1,27 @@
 timeout(time: 60, unit: 'MINUTES') {
     node("maven-slave") {
 
-
-
-        def config = readYaml text: $CONFIG
-
-            config.each(k, v -> {
-                env.setProperty(k, v)
-            })
+//
+//        def config = readYaml text: $CONFIG
+//
+//        config.each( k, v -> {
+//            env.setProperty(k, v)
+//        })
 
 
         stage("Checkout") {
             checkout scm
         }
+
+        stage("checkout utils"){
+            dir('tools'){
+                git branch: 'master', url:'https://github.com/jenkinsci/jenkins.git,',credentialId: 'jenkins'
+            }
+        }
+
+        utils  =  load './tools/utils'
+        utils.prepare_yaml_config()
+
         stage("Run UI tests") {
             status - sh(
                     script: "mvn test -Dbrowser=$env.BROWSER -DBASE_URL=$env.BASE_URL",
@@ -34,11 +43,11 @@ timeout(time: 60, unit: 'MINUTES') {
         }
         stage("Publish allure results") {
             allure([
-                    disabled: true,
+                    disabled         : true,
                     includeProperties: false,
-                    jdk: '',
+                    jdk              : '',
                     reportBuildPolicy: 'ALWAYS',
-                    report: './target/allure-results'
+                    report           : './target/allure-results'
 
 //                    includeProperties: false,
 //                    jdk: '',
