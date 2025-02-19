@@ -1,37 +1,52 @@
-timeout(60) {
-    node('maven-slave') {
-        stage('Checkout') {
+timeout(time: 60, unit: 'MINUTES') {
+    node("maven-slave") {
+
+
+
+        def config = readYaml text: $CONFIG
+
+            config.each(k, v -> {
+                env.setProperty(k, v)
+            })
+
+
+        stage("Checkout") {
             checkout scm
-            // git branch: "$BRANCH", credentialsId: 'jenkins', url: 'git@github.com:saint88/jenkins.git'
         }
-        stage('Run tests') {
-            def jobs = [:]
+        stage("Run UI tests") {
+            status - sh(
+                    script: "mvn test -Dbrowser=$env.BROWSER -DBASE_URL=$env.BASE_URL",
+                    returnStatus: true
+            )
 
-            def runnerJobs = "$TEST_TYPE".split(",")
-
-            jobs['ui_tests'] = {
-                node('maven-slave') {
-                    stage('Ui tests on chrome') {
-                        if('ui' in runnerJobs) {
-                            catchError(buildResult: 'SUCCESS', stageResult: 'UNSTABLE') {
-                                build(job: 'ui-tests',
-                                        parameters: [
-                                                string(name: 'BRANCH', value: BRANCH),
-                                                string(name: 'BASE_URL', value: BASE_URL),
-                                                string(name: 'BROWSER', value: BROWSER),
-                                                string(name: 'BROWSER_VERSION', value: BROWSER_VERSION),
-                                                string(name: 'GRID_URL', value: GRID_URL)
-                                        ])
-                            }
-                        } else {
-                            echo 'Skipping stage...'
-                            Utils.markStageSkippedForConditional('keystone api tests')
-                        }
-                    }
-                }
+            if (status > 0) {
+                currentBuild.status = "UNSTABLE"
             }
+//            def exitCode = sh(
+//                    returnStatus: true,
+//                    script: """
+//                    mvn test -Dbrowser=$BROWSER -Dbrowser.version=$BROWSER_VERSION -Dwebdriver.base.url=$BASE_URL -Dwebdriver.remote.url=$GRID_URL
+//                    """
+//            )
+//            if(exitCode == 1) {
+//                currentBuild.result = 'UNSTABLE'
+//            }
+        }
+        stage("Publish allure results") {
+            allure([
+                    disabled: true,
+                    includeProperties: false,
+                    jdk: '',
+                    reportBuildPolicy: 'ALWAYS',
+                    report: './target/allure-results'
 
-            parallel jobs
+//                    includeProperties: false,
+//                    jdk: '',
+//                    properties: [],
+//                    reportBuildPolicy: 'ALWAYS',
+//                    results: [[path: 'allure-results']]
+            ])
         }
     }
 }
+
