@@ -13,14 +13,14 @@ timeout(time: 60, unit: 'MINUTES') {
             checkout scm
         }
 
-        stage("checkout utils"){
-            dir('tools'){
-                git branch: 'master', url:'https://github.com/jenkinsci/jenkins.git,',credentialId: 'jenkins'
-            }
-        }
+        // stage("checkout utils"){
+        //     dir('tools'){
+        //         git branch: 'master', url:'https://github.com/jenkinsci/jenkins.git,',credentialId: 'jenkins'
+        //     }
+        // }
 
-        utils  =  load './tools/utils'
-        utils.prepare_yaml_config()
+        // utils  =  load './tools/utils'
+        // utils.prepare_yaml_config()
 
         stage("Run UI tests") {
             status - sh(
